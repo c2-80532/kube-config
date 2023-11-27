@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: http-web
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: http-web
+  template:
+    metadata:
+      labels:
+        app: http-web
+    spec:
+      containers:
+        - name: http-web
+          image: shubhamchau/assign8q3:1.0
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-web
+spec:
+  selector:
+    app: http-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
