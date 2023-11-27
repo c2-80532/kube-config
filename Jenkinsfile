@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables
         registryCredential = 'dockerhub-credentials'
-        dockerImage = 'your-docker-image-name:latest'
+        dockerImage = 'shubhamchau/assign8q3:1.1'
         kubeConfig = credentials('kubeconfig-credentials-id')
     }
 
@@ -25,9 +25,8 @@ pipeline {
             steps {
                 script {
                     // Deploy to Kubernetes
-                    withKubeConfig([credentialsId: 'kubeconfig-credentials-id', serverUrl: 'https://your-kube-api-server']) {
-                        sh 'kubectl apply -f your-replicaset.yaml'
-                        sh 'kubectl apply -f new_service.yaml'
+                    withKubeConfig([credentialsId: 'kubeconfig-credentials-id', serverUrl: 'https://192.168.49.2:8443']) {
+                        sh 'kubectl apply -f kubeserv.yml'
                     }
                 }
             }
